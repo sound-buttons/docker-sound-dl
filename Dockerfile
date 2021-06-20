@@ -1,15 +1,11 @@
 #See https://aka.ms/containerfastmode to understand how Visual Studio uses this Dockerfile to build your images for faster debugging.
 
-FROM mcr.microsoft.com/dotnet/runtime:5.0 AS base
+FROM mcr.microsoft.com/dotnet/runtime:5.0-alpine AS base
 WORKDIR /app
 ENV AZURE_STORAGE_CONNECTION_STRING="ChangeThis"
 ENV CHANNELS_IN_ARRAY="[\"https://www.youtube.com/channel/UCuy-kZJ7HWwUU-eKv0zUZFQ\", \"https://www.youtube.com/channel/UCBC7vYFNQoGPupe5NxPG4Bw\"]"
-RUN  apt-get update \
-        && apt-get -y install software-properties-common \
-        && apt-get update \
-        && apt-get -y install python-pip aria2 ffmpeg \
-        && rm -rf /var/lib/apt/lists/* \
-        && pip install youtube-dl
+RUN apk --update add --no-cache aria2 ffmpeg py3-pip musl-dev gcc \ 
+	&& pip install --upgrade yt-dlp
 
 FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build
 WORKDIR /src
