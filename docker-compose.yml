@@ -17,8 +17,8 @@ services:
       - JOB_NOTIFY_FAIL1=true
 
   sounddl:
-    # image: ghcr.io/jim60105/docker-sound-dl
-    build: .
+    image: ghcr.io/jim60105/docker-sound-dl
+    # build: .
     restart: 'no'
     env_file:
       - .env
