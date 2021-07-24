@@ -1,0 +1,18 @@
+# Override logging settings to LogServer
+version: '3.7'
+
+services:
+  jobber:
+    env_file:
+      - .env
+    logging:
+      driver: "gelf"
+      options:
+        gelf-address: "udp://${LOGSERVER}"
+  sounddl:
+    env_file:
+      - .env
+    logging:
+      driver: "gelf"
+      options:
+        gelf-address: "udp://${LOGSERVER}"

@@ -1,0 +1,24 @@
+version: '3.7'
+
+services:
+  jobber:
+    image: blacklabelops/jobber:docker
+    restart: unless-stopped
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - ./:/docker-sound-dl:ro
+    env_file:
+      - .env
+    environment:
+      - JOB_NAME1=sound-dl
+      - JOB_COMMAND1=cd /docker-sound-dl && docker-compose start sounddl
+      - JOB_TIME1=0 0 3 * * * #Exec per Day at UTC 00:00
+      - JOB_NOTIFY_ERR1=true
+      - JOB_NOTIFY_FAIL1=true
+
+  sounddl:
+    # image: ghcr.io/jim60105/docker-sound-dl
+    build: .
+    restart: 'no'
+    env_file:
+      - .env

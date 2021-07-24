@@ -11,14 +11,14 @@
 
 ## Setting up
 
-- 在本機環境變數中儲存connection string，命名為「AZURE_STORAGE_CONNECTION_STRING」\
-<https://docs.microsoft.com/zh-tw/azure/storage/common/storage-account-keys-manage?toc=%2Fazure%2Fstorage%2Fblobs%2Ftoc.json&tabs=azure-portal#view-account-access-keys>
-- docker run
+請參考 [`.env_sample`](.env_sample) 建立 `.env`
 
-        docker run --rm --env CHANNELS_IN_ARRAY="[\"https://www.youtube.com/channel/UCBC7vYFNQoGPupe5NxPG4Bw\", \"https://www.youtube.com/channel/UC7XCjKxBEct0uAukpQXNFPw\", \"https://www.youtube.com/channel/UCuy-kZJ7HWwUU-eKv0zUZFQ\"]" --env AZURE_STORAGE_CONNECTION_STRING jim60105/docker-sound-dl
+* `CHANNELS_IN_ARRAY`=要快取的影片channel
+* `AZURE_STORAGE_CONNECTION_STRING`=Azure storage連接字串，詳見[官方文件](https://docs.microsoft.com/zh-tw/azure/storage/common/storage-account-keys-manage?toc=%2Fazure%2Fstorage%2Fblobs%2Ftoc.json&tabs=azure-portal#view-account-access-keys)
+* `LOGSERVER`=GELF log server位置，詳細請參照後文
 
 ## LICENSE
 
-- Distribute main code with MIT License.
-- Use YoutubeDLSharp under BSD 3-Clause License.
-- Use youtube-dl under Unlicensed License.
+* Distribute main code with MIT License.
+* Use YoutubeDLSharp under BSD 3-Clause License.
+* Use youtube-dl under Unlicensed License.
