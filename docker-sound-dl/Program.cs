@@ -29,7 +29,7 @@ namespace docker_sound_dl
 
             // 計時
             DateTime startTime = DateTime.Now;
-            logger.Information("Start backup-dl {now}", startTime.ToString());
+            logger.Information("Start sound-dl {now}", startTime.ToString());
 
             // Create a BlobServiceClient object which will be used to create a container client
             string connectionString = Environment.GetEnvironmentVariable("AZURE_STORAGE_CONNECTION_STRING");
