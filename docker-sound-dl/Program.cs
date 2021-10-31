@@ -102,9 +102,9 @@ namespace docker_sound_dl
         /// <param name="tempDir">用來計算Storage內路徑的基準路徑</param>
         /// <param name="filePath">上傳檔案路徑</param>
         /// <returns></returns>
-        private static async Task<bool> UploadToAzure(string filePath, bool retry = true, string ContentType = "video/mp4")
+        private static async Task<bool> UploadToAzure(string filePath, bool retry = true, string ContentType = "audio/webm")
         {
-            bool isVideo = ContentType == "video/mp4";
+            bool isVideo = ContentType == "audio/webm";
             try
             {
                 using (FileStream fs = new(filePath, FileMode.Open, FileAccess.Read))
