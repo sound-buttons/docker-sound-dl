@@ -4,7 +4,7 @@ FROM mcr.microsoft.com/dotnet/runtime:5.0-alpine AS base
 WORKDIR /app
 ENV AZURE_STORAGE_CONNECTION_STRING="ChangeThis"
 ENV CHANNELS_IN_ARRAY="[\"https://www.youtube.com/channel/UCuy-kZJ7HWwUU-eKv0zUZFQ\", \"https://www.youtube.com/channel/UCBC7vYFNQoGPupe5NxPG4Bw\"]"
-RUN apk --update add --no-cache aria2 ffmpeg py3-pip musl-dev gcc \ 
+RUN apk --update add --no-cache aria2 ffmpeg py3-pip musl-dev gcc g++ python3-dev \ 
 	&& pip install --upgrade yt-dlp
 
 FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build
