@@ -11,10 +11,10 @@ RUN apk add --no-cache --virtual build-deps musl-dev gcc g++ python3-dev &&\
 
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
-COPY ["docker-sound-dl.csproj", "docker-sound-dl/"]
-RUN dotnet restore "docker-sound-dl/docker-sound-dl.csproj"
+COPY ["docker-sound-dl.csproj", "."]
+RUN dotnet restore "./docker-sound-dl.csproj"
 COPY . .
-WORKDIR "/src/docker-sound-dl"
+WORKDIR "/src/."
 RUN dotnet build "docker-sound-dl.csproj" -c Release -o /app/build
 
 FROM build AS publish
