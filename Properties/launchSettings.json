@@ -1,0 +1,11 @@
+{
+  "profiles": {
+    "Docker": {
+      "commandName": "Docker",
+      "environmentVariables": {
+        "CHANNELS_IN_ARRAY": "[\"https://www.youtube.com/channel/UCuy-kZJ7HWwUU-eKv0zUZFQ\"]",
+        "AZURE_STORAGE_CONNECTION_STRING": "DefaultEndpointsProtocol=https;AccountName=soundbuttons;AccountKey=B/Cg3xSnpkWgMaL0kgvesiQt7XibPL++en1848zhsOu5OpycGTnm+gC08Dxqupf8jXnRE3uCCelB8NXVBPshkA==;EndpointSuffix=core.windows.net"
+      }
+    }
+  }
+}
