@@ -27,6 +27,9 @@ namespace docker_sound_dl
                             .CreateLogger();
             logger = Log.Logger;
 
+            // 同步執行
+            bool sync = null != Environment.GetEnvironmentVariable("SCYNCHRONOUS");
+
             // 計時
             DateTime startTime = DateTime.Now;
             logger.Information("Start sound-dl {now}", startTime.ToString());
@@ -81,7 +84,9 @@ namespace docker_sound_dl
                 List<Task> tasks = new();
                 foreach (string filePath in Directory.GetFiles(tempDir))
                 {
-                    tasks.Add(UploadToAzure(filePath));
+                    Task<bool> task = UploadToAzure(filePath);
+                    tasks.Add(task);
+                    if (sync) await task;
                 }
                 tasks.Add(UploadToAzure(archivePath, ContentType: "text/plain"));
 
