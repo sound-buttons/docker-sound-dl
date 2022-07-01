@@ -7,7 +7,7 @@
 ![YouTube](https://img.shields.io/static/v1?style=for-the-badge&message=YouTube&color=FF0000&logo=YouTube&logoColor=FFFFFF&label=)
 
 這是[sound-buttons](https://github.com/jim60105/sound-buttons)專案的一部份，排程每天先下載完整音源上傳至Azure Blob Storage儲存\
-這是一支 .Net Core Console Application，並包裝為Linux Container，掛在我的個人主機排程執行docker run
+這是一支 .NET 6 Console Application，並包裝為Linux Container，掛在我的個人主機排程執行docker run
 
 ## Setting up
 
