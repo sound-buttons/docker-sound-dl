@@ -18,7 +18,7 @@ namespace docker_sound_dl
 
         public static string YtdlPath { get; set; } = "/usr/bin/yt-dlp";
 
-        static void Main(string[] args)
+        static async Task Main()
         {
             // 建立Logger
             Log.Logger = new LoggerConfiguration()
@@ -72,10 +72,10 @@ namespace docker_sound_dl
                 logger.Information("Start download process.");
 
                 // 下載音訊
-                ytdlProc.RunAsync(
+                await ytdlProc.RunAsync(
                     channels,
                     optionSet,
-                    new System.Threading.CancellationToken()).Wait();
+                    new System.Threading.CancellationToken());
 
                 // 上傳blob storage
                 List<Task> tasks = new();
@@ -83,9 +83,9 @@ namespace docker_sound_dl
                 {
                     tasks.Add(UploadToAzure(filePath));
                 }
-                _ = UploadToAzure(archivePath, ContentType: "text/plain");
+                tasks.Add(UploadToAzure(archivePath, ContentType: "text/plain"));
 
-                Task.WaitAll(tasks.ToArray());
+                await Task.WhenAll(tasks.ToArray());
                 logger.Debug("All tasks are completed. Total time spent: {timeSpent}", (DateTime.Now - startTime).ToString("hh\\:mm\\:ss"));
             }
             finally
@@ -107,27 +107,25 @@ namespace docker_sound_dl
             bool isVideo = ContentType == "audio/webm";
             try
             {
-                using (FileStream fs = new(filePath, FileMode.Open, FileAccess.Read))
-                {
-                    logger.Debug("Start Upload {path} to azure storage", filePath);
+                using FileStream fs = new(filePath, FileMode.Open, FileAccess.Read);
+                logger.Debug("Start Upload {path} to azure storage", filePath);
 
-                    long fileSize = new FileInfo(filePath).Length;
+                long fileSize = new FileInfo(filePath).Length;
 
-                    // 覆寫
-                    _ = await containerClient
-                        .GetBlobClient($"AudioSource/{Path.GetFileName(filePath)}")
-                        .UploadAsync(content: fs,
-                                     httpHeaders: new BlobHttpHeaders { ContentType = ContentType },
-                                     accessTier: AccessTier.Hot,
-                                     progressHandler: new Progress<long>(progress =>
-                                     {
-                                         logger.Verbose("Uploading...{progress}% {path}", Math.Round(((double)progress) / fileSize * 100), filePath);
-                                     }));
-                    logger.Debug("Finish Upload {path} to azure storage", filePath);
+                // 覆寫
+                _ = await containerClient
+                    .GetBlobClient($"AudioSource/{Path.GetFileName(filePath)}")
+                    .UploadAsync(content: fs,
+                                 httpHeaders: new BlobHttpHeaders { ContentType = ContentType },
+                                 accessTier: AccessTier.Hot,
+                                 progressHandler: new Progress<long>(progress =>
+                                 {
+                                     logger.Verbose("Uploading...{progress}% {path}", Math.Round(((double)progress) / fileSize * 100), filePath);
+                                 }));
+                logger.Debug("Finish Upload {path} to azure storage", filePath);
 
-                    if (isVideo) File.Delete(filePath);
-                    return true;
-                }
+                if (isVideo) File.Delete(filePath);
+                return true;
             }
             catch (Exception e)
             {
