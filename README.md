@@ -6,6 +6,12 @@
 ![Docker](https://img.shields.io/static/v1?style=for-the-badge&message=Docker&color=2496ED&logo=Docker&logoColor=FFFFFF&label=)
 ![YouTube](https://img.shields.io/static/v1?style=for-the-badge&message=YouTube&color=FF0000&logo=YouTube&logoColor=FFFFFF&label=)
 
+> **Note**
+> 它**曾經**是[sound-buttons](https://github.com/jim60105/sound-buttons)專案的一部份\
+> 後來我在backend上實作了[從Youtube只下載需要的片段](https://github.com/jim60105/sound-buttons_upload-backend/commit/2cbe1a1d324699c468ebc7b725c75e65d264782e)，不再下載整部影片，不會遇到下載超時問題\
+> 此專案因此將不再維護，轉為封存狀態\
+> 不過在這個時間點它仍然能正常運作，如果你有興趣，可以繼續使用它
+
 這是[sound-buttons](https://github.com/jim60105/sound-buttons)專案的一部份，排程每天先下載完整音源上傳至Azure Blob Storage儲存\
 這是一支 .NET 6 Console Application，並包裝為Linux Container，掛在我的個人主機排程執行docker run
 
